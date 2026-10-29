@@ -9,10 +9,13 @@ export const siteConfig = {
 
   /**
    * URL pública del sitio (sin barra final). La usa el SEO: canonical,
-   * Open Graph, sitemap y robots. Configúrala en Vercel con la variable
-   * NEXT_PUBLIC_SITE_URL = https://tu-url.vercel.app (o tu dominio propio).
+   * Open Graph, sitemap y robots. Dominio propio: https://cerotraba.io
+   * (configurable en Vercel con la variable NEXT_PUBLIC_SITE_URL).
    */
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://cerotraba3-0.vercel.app",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://cerotraba.io",
+
+  /** Dominio canónico del sitio, sin protocolo. Útil para textos y metadatos. */
+  domain: "cerotraba.io",
 
   /**
    * Correo de contacto que aparece en el sitio y en los botones de respuesta.
