@@ -58,3 +58,4 @@ worklog.md
 db/*.db
 db/*.db-journal
 scripts/*.png
+upload/
