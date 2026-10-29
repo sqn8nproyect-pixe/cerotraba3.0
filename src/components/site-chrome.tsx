@@ -150,6 +150,13 @@ export function SiteFooter() {
       </div>
       <div className="page-width footer-bottom">
         <span>2026 CeroTraba. Tecnología sin trabas.</span>
+        <span className="footer-rif">
+          <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 3 20 6v5c0 5.3-3.4 8.6-8 10-4.6-1.4-8-4.7-8-10V6z" />
+            <path d="m8.5 12 2.2 2.2 4.8-5" />
+          </svg>
+          Agencia registrada · RIF {siteConfig.rif}
+        </span>
         <span>Hecho para avanzar.</span>
         <a className="footer-admin" href="/admin">
           Panel

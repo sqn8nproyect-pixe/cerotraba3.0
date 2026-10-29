@@ -18,6 +18,12 @@ export const siteConfig = {
   domain: "cerotraba.io",
 
   /**
+   * RIF de la empresa (registro fiscal venezolano). Aparece en el footer,
+   * en /nosotros y en la política de privacidad como sello de formalidad.
+   */
+  rif: "J-508830466",
+
+  /**
    * Correo de contacto que aparece en el sitio y en los botones de respuesta.
    */
   contactEmail: "cerotraba@gmail.com",

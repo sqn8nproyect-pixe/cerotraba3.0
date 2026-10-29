@@ -35,7 +35,7 @@ console.log("Formulario guarda lead:", "OK");
 // 4. Header -> Blog: navega y el artículo abre
 await page.click('.desktop-nav a[href="/blog"]');
 await page.waitForURL("**/blog", { timeout: 10000 });
-await page.waitForLoadState("networkidle");
+await page.waitForTimeout(1200);
 await page.waitForTimeout(400);
 const blogTitle = await page.locator("h1").first().textContent();
 console.log("Navegación a /blog:", blogTitle?.includes("Ideas claras") ? "OK" : `FALLO (${blogTitle})`);
@@ -43,13 +43,13 @@ console.log("Navegación a /blog:", blogTitle?.includes("Ideas claras") ? "OK" :
 // 5. Tarjeta destacada -> artículo
 await page.click(".blog-featured");
 await page.waitForURL("**/blog/**", { timeout: 10000 });
-await page.waitForLoadState("networkidle");
+await page.waitForTimeout(1200);
 console.log("Artículo abre desde tarjeta:", "OK");
 
 // 6. Footer -> Privacidad
 await page.click('.footer-nav a[href="/privacidad"]');
 await page.waitForURL("**/privacidad", { timeout: 10000 });
-await page.waitForLoadState("networkidle");
+await page.waitForTimeout(1200);
 const privTitle = await page.locator("h1").first().textContent();
 console.log("Footer -> /privacidad:", privTitle?.includes("privacidad") ? "OK" : `FALLO (${privTitle})`);
 

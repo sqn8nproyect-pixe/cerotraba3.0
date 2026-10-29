@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import WhatsAppButton from "@/components/whatsapp-button";
 import { RevealObserver, SiteFooter, SiteHeader } from "@/components/site-chrome";
@@ -71,7 +72,7 @@ export default function BlogPage() {
       <section className="blog-section page-width" aria-label="Artículos del blog">
         <Link className="blog-featured reveal" href={`/blog/${featured.slug}`}>
           <span className="blog-card-media">
-            <img src={featured.image} alt={featured.imageAlt} width={960} height={600} />
+            <Image src={featured.image} alt={featured.imageAlt} width={960} height={600} priority sizes="(max-width: 820px) 92vw, 46vw" />
           </span>
           <span className="blog-featured-body">
             <span className="blog-chip">{featured.category}</span>
@@ -94,7 +95,7 @@ export default function BlogPage() {
           {rest.map((post) => (
             <Link className="blog-card reveal" href={`/blog/${post.slug}`} key={post.slug}>
               <span className="blog-card-media">
-                <img src={post.image} alt={post.imageAlt} loading="lazy" width={640} height={400} />
+                <Image src={post.image} alt={post.imageAlt} loading="lazy" width={640} height={400} sizes="(max-width: 820px) 92vw, (max-width: 1050px) 45vw, 340px" />
               </span>
               <span className="blog-card-body">
                 <span className="blog-chip">{post.category}</span>

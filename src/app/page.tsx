@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import WhatsAppButton from "@/components/whatsapp-button";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { siteConfig } from "@/lib/site-config";
@@ -24,14 +25,14 @@ type IconName =
   | "x";
 
 const services = [
-  { number: "01", icon: "automation" as IconName, image: "/servicios/automatizacion.jpg", alt: "Monitor con una red de automatización de tareas conectada", title: "Automatizaciones inteligentes", text: "Conectamos las tareas repetitivas de tu negocio para que los procesos sigan avanzando, incluso cuando tu equipo no está frente a la pantalla.", detail: "Ventas, reportes, respuestas y seguimiento" },
-  { number: "02", icon: "camera" as IconName, image: "/servicios/cctv.jpg", alt: "Cámara de seguridad CCTV instalada en un local comercial", title: "CCTV que te da visibilidad", text: "Diseñamos e implementamos sistemas de videovigilancia confiables para proteger tus instalaciones, activos y tranquilidad.", detail: "Diseño, instalación y acceso remoto" },
-  { number: "03", icon: "code" as IconName, image: "/servicios/web.jpg", alt: "Laptop mostrando el diseño de una página web moderna", title: "Páginas que convierten", text: "Creamos experiencias web rápidas, claras y pensadas para transformar una visita en una conversación de ventas.", detail: "Estrategia, diseño y lanzamiento" },
-  { number: "04", icon: "network" as IconName, image: "/servicios/redes.jpg", alt: "Smartphone con gráficos de crecimiento en redes sociales", title: "Redes con dirección", text: "Ordenamos tu presencia digital con contenido y canales que hacen que tu marca se vea, se entienda y se recuerde.", detail: "Contenido, comunidad y performance" },
-  { number: "05", icon: "desktop" as IconName, image: "/servicios/soporte.jpg", alt: "Técnico de soporte reparando una computadora de escritorio", title: "Soporte que resuelve", text: "Mantenemos los equipos de tu operación listos para trabajar. Menos interrupciones, más continuidad para tu día a día.", detail: "PC, redes, mantenimiento y respaldo" },
-  { number: "06", icon: "cable" as IconName, image: "/servicios/cableado.jpg", alt: "Rack de red organizado con cables etiquetados", title: "Cableado estructurado", text: "Diseñamos e instalamos la red de cableado de tu oficina o local: ordenada, etiquetada y lista para crecer sin cables sueltos ni puntos muertos.", detail: "Diseño, instalación y etiquetado" },
-  { number: "07", icon: "link" as IconName, image: "/servicios/interconexion.jpg", alt: "Dos edificios conectados por un enlace de datos luminoso", title: "Interconexiones entre sedes", text: "Unimos tus sucursales, oficinas y puntos de venta con enlaces seguros para que la información viaje como si todo estuviera en el mismo lugar.", detail: "Enlaces punto a punto y VPN" },
-  { number: "08", icon: "wifi" as IconName, image: "/servicios/wifi.jpg", alt: "Router WiFi irradiando señal en una oficina", title: "Router WiFi y conectividad", text: "Configuramos tu red inalámbrica para que haya señal estable en cada rincón: routers, access points y una red protegida para tu equipo y tus clientes.", detail: "Cobertura, configuración y seguridad" },
+  { number: "01", icon: "automation" as IconName, image: "/servicios/automatizacion.jpg", alt: "Monitor con una red de automatización de tareas conectada", title: "Automatizaciones inteligentes", text: "Conectamos las tareas repetitivas de tu negocio para que los procesos sigan avanzando, incluso cuando tu equipo no está frente a la pantalla.", detail: "Ventas, reportes, respuestas y seguimiento", need: "Automatizaciones" },
+  { number: "02", icon: "camera" as IconName, image: "/servicios/cctv.jpg", alt: "Cámara de seguridad CCTV instalada en un local comercial", title: "CCTV que te da visibilidad", text: "Diseñamos e implementamos sistemas de videovigilancia confiables para proteger tus instalaciones, activos y tranquilidad.", detail: "Diseño, instalación y acceso remoto", need: "CCTV y seguridad" },
+  { number: "03", icon: "code" as IconName, image: "/servicios/web.jpg", alt: "Laptop mostrando el diseño de una página web moderna", title: "Páginas que convierten", text: "Creamos experiencias web rápidas, claras y pensadas para transformar una visita en una conversación de ventas.", detail: "Estrategia, diseño y lanzamiento", need: "Página web de conversión" },
+  { number: "04", icon: "network" as IconName, image: "/servicios/redes.jpg", alt: "Smartphone con gráficos de crecimiento en redes sociales", title: "Redes con dirección", text: "Ordenamos tu presencia digital con contenido y canales que hacen que tu marca se vea, se entienda y se recuerde.", detail: "Contenido, comunidad y performance", need: "Redes sociales y contenido" },
+  { number: "05", icon: "desktop" as IconName, image: "/servicios/soporte.jpg", alt: "Técnico de soporte reparando una computadora de escritorio", title: "Soporte que resuelve", text: "Mantenemos los equipos de tu operación listos para trabajar. Menos interrupciones, más continuidad para tu día a día.", detail: "PC, redes, mantenimiento y respaldo", need: "Soporte técnico" },
+  { number: "06", icon: "cable" as IconName, image: "/servicios/cableado.jpg", alt: "Rack de red organizado con cables etiquetados", title: "Cableado estructurado", text: "Diseñamos e instalamos la red de cableado de tu oficina o local: ordenada, etiquetada y lista para crecer sin cables sueltos ni puntos muertos.", detail: "Diseño, instalación y etiquetado", need: "Cableado estructurado" },
+  { number: "07", icon: "link" as IconName, image: "/servicios/interconexion.jpg", alt: "Dos edificios conectados por un enlace de datos luminoso", title: "Interconexiones entre sedes", text: "Unimos tus sucursales, oficinas y puntos de venta con enlaces seguros para que la información viaje como si todo estuviera en el mismo lugar.", detail: "Enlaces punto a punto y VPN", need: "Interconexiones y enlaces" },
+  { number: "08", icon: "wifi" as IconName, image: "/servicios/wifi.jpg", alt: "Router WiFi irradiando señal en una oficina", title: "Router WiFi y conectividad", text: "Configuramos tu red inalámbrica para que haya señal estable en cada rincón: routers, access points y una red protegida para tu equipo y tus clientes.", detail: "Cobertura, configuración y seguridad", need: "Router WiFi" },
 ];
 
 const plans = [
@@ -120,7 +121,10 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
+  const [formNeed, setFormNeed] = useState("");
+  const [formFlash, setFormFlash] = useState(false);
   const autoRef = useRef(true);
+  const flashRef = useRef<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
@@ -140,6 +144,15 @@ export default function App() {
   function goToTestimonial(index: number) {
     autoRef.current = false;
     setActiveTestimonial((index + testimonials.length) % testimonials.length);
+  }
+
+  function requestService(need: string) {
+    setFormNeed(need);
+    document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setFormFlash(false);
+    if (flashRef.current) window.clearTimeout(flashRef.current);
+    flashRef.current = window.setTimeout(() => setFormFlash(true), 420);
+    window.setTimeout(() => setFormFlash(false), 2200);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -187,14 +200,28 @@ export default function App() {
             "@id": `${siteConfig.siteUrl}/#negocio`,
             name: siteConfig.name,
             slogan: siteConfig.tagline,
-            description: "Servicios tecnológicos para empresas en Venezuela: automatizaciones inteligentes, CCTV, páginas web, redes sociales, soporte técnico, cableado estructurado, interconexiones entre sedes y router WiFi.",
+            description: "Servicios tecnológicos para empresas en Venezuela: automatizaciones inteligentes, CCTV, páginas web, redes sociales, soporte técnico, cableado estructurado, interconexiones entre sedes y router WiFi. Proyectos digitales en producción también en Chile.",
             url: siteConfig.siteUrl,
             email: siteConfig.contactEmail,
             telephone: "+584220117206",
             image: `${siteConfig.siteUrl}/og-cerotraba.jpg`,
+            logo: `${siteConfig.siteUrl}/logo.svg`,
             priceRange: "$$",
-            address: { "@type": "PostalAddress", addressCountry: "VE" },
-            areaServed: { "@type": "Country", name: "Venezuela" },
+            taxID: "J-508830466",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Los Teques",
+              addressRegion: "Miranda",
+              addressCountry: "VE",
+            },
+            geo: { "@type": "GeoCoordinates", latitude: 10.3439, longitude: -66.0433 },
+            areaServed: [
+              { "@type": "City", name: "Los Teques" },
+              { "@type": "City", name: "Caracas" },
+              { "@type": "AdministrativeArea", name: "Estado Miranda" },
+              { "@type": "Country", name: "Venezuela" },
+              { "@type": "Country", name: "Chile" },
+            ],
             sameAs: [`https://wa.me/${siteConfig.whatsappNumber}`],
             hasOfferCatalog: {
               "@type": "OfferCatalog",
@@ -243,10 +270,12 @@ export default function App() {
       </section>
 
       <section id="servicios" className="services-section page-width section-space" aria-labelledby="services-title">
-        <Reveal className="section-heading"><p className="eyebrow">Un aliado, ocho frentes</p><h2 id="services-title">Ponemos cada pieza de tu operación a trabajar contigo.</h2><p>Soluciones claras para necesidades reales. Elegimos la tecnología correcta, la implementamos bien y nos quedamos cerca.</p></Reveal>
+        <Reveal className="section-heading"><p className="eyebrow">Un aliado, ocho frentes</p><h2 id="services-title">Ponemos cada pieza de tu operación a trabajar contigo.</h2><p>Soluciones claras para necesidades reales. Elegimos la tecnología correcta, la implementamos bien y nos quedamos cerca. Haz clic en el servicio que necesitas y te llevamos directo a la consulta.</p></Reveal>
         <div className="service-list">
-          {services.map((service, index) => <Reveal className="service-row" delay={index * 85} key={service.number}>
-            <span className="service-number">{service.number}</span><div className="service-thumb"><img src={service.image} alt={service.alt} loading="lazy" width={576} height={432} /><span className="service-thumb-icon" aria-hidden="true"><Icon name={service.icon} size={14} /></span></div><div className="service-main"><h3>{service.title}</h3><p>{service.text}</p></div><p className="service-detail">{service.detail}</p><a className="service-link" href="#contacto" aria-label={`Consultar sobre ${service.title}`}><Icon name="arrow" size={20} /></a>
+          {services.map((service, index) => <Reveal className="service-item" delay={index * 85} key={service.number}>
+            <button type="button" className="service-row" onClick={() => requestService(service.need)} aria-label={`Consultar sobre ${service.title} — llena el formulario con este servicio preseleccionado`}>
+              <span className="service-number">{service.number}</span><div className="service-thumb"><Image src={service.image} alt={service.alt} width={576} height={432} sizes="(max-width: 480px) calc(100vw - 32px), (max-width: 820px) 136px, (max-width: 1050px) 160px, 206px" /><span className="service-thumb-icon" aria-hidden="true"><Icon name={service.icon} size={14} /></span></div><div className="service-main"><h3>{service.title}</h3><p>{service.text}</p></div><p className="service-detail">{service.detail}</p><span className="service-link" aria-hidden="true"><Icon name="arrow" size={20} /></span>
+            </button>
           </Reveal>)}
         </div>
       </section>
@@ -287,7 +316,7 @@ export default function App() {
         <div className="project-list">
           {projects.map((project, index) => (
             <Reveal className="project-card" delay={index * 90} key={project.name}>
-              <div className="project-media"><img src={project.image} alt={project.alt} loading="lazy" width={576} height={576} /></div>
+              <div className="project-media"><Image src={project.image} alt={project.alt} loading="lazy" width={576} height={576} sizes="(max-width: 820px) 92vw, (max-width: 1050px) 170px, 280px" /></div>
               <div className="project-main">
                 <span className="project-tag">{project.tag}</span>
                 <h3>{project.name}</h3>
@@ -305,7 +334,7 @@ export default function App() {
         <div className="client-list">
           {clients.map((client, index) => (
             <Reveal className="client-card" delay={index * 90} key={client.name}>
-              <div className="client-media"><img src={client.image} alt={client.alt} loading="lazy" width={576} height={360} /><span className="client-country"><svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>{client.country}</span></div>
+              <div className="client-media"><Image src={client.image} alt={client.alt} loading="lazy" width={576} height={360} sizes="(max-width: 820px) 92vw, (max-width: 1050px) 170px, 265px" /><span className="client-country"><svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>{client.country}</span></div>
               <div className="client-main">
                 <h3>{client.name}</h3>
                 <p className="client-domain">{client.domain}</p>
@@ -328,7 +357,7 @@ export default function App() {
         <div className="faq-list">{faqs.map((faq, index) => <Reveal className="faq-item" delay={index * 65} key={faq.question}><button type="button" onClick={() => setOpenFaq(openFaq === index ? null : index)} aria-expanded={openFaq === index}><span>{faq.question}</span><i><Icon name="chevron" size={20} /></i></button><div className={`faq-answer ${openFaq === index ? "faq-answer--open" : ""}`}><p>{faq.answer}</p></div></Reveal>)}</div>
       </section>
 
-      <section id="contacto" className="contact-section" aria-labelledby="contact-title"><div className="contact-wrap page-width"><Reveal className="contact-copy"><p className="eyebrow eyebrow--light">El siguiente paso empieza aquí</p><h2 id="contact-title">Tu negocio no tiene por qué seguir adaptándose a la tecnología.</h2><p>Cuéntanos en qué punto estás. Encontraremos la manera de quitar la traba.</p><div className="contact-points"><span><Icon name="shield" size={18} /> Conversación sin compromiso</span><span><Icon name="spark" size={18} /> Propuesta clara y accionable</span></div></Reveal><Reveal className="lead-form-wrap" delay={120}>{submitted ? <div className="form-success" role="status"><div><Icon name="check" size={30} /></div><h3>Recibimos tu mensaje.</h3><p>Muy pronto un miembro de CeroTraba se pondrá en contacto contigo para conocer tu necesidad.</p><button className="text-link text-link--light" onClick={() => setSubmitted(false)}>Enviar otra consulta <Icon name="arrow" size={17} /></button></div> : <form className="lead-form" onSubmit={handleSubmit} noValidate={false}><div className="form-row"><label>Nombre<input required type="text" name="name" placeholder="¿Cómo te llamas?" maxLength={120} /></label><label>WhatsApp<input required type="tel" name="phone" placeholder="Tu número" maxLength={40} /></label></div><label>Correo de trabajo<input required type="email" name="email" placeholder="tu@empresa.com" maxLength={160} /></label><label>¿Qué necesitas?<select required name="need" defaultValue=""><option value="" disabled>Elige una opción</option><option>Automatizaciones</option><option>CCTV y seguridad</option><option>Cableado estructurado</option><option>Interconexiones y enlaces</option><option>Router WiFi</option><option>Página web de conversión</option><option>Redes sociales y contenido</option><option>Soporte técnico</option><option>No estoy seguro aún</option></select></label><label>Cuéntanos brevemente<textarea name="message" rows={3} placeholder="¿Qué te gustaría resolver?" maxLength={2000} /></label>{formError && <p className="form-error" role="alert"><Icon name="warning" size={15} /> {formError}</p>}<button className="button button--primary form-submit" type="submit" disabled={sending}>{sending ? "Enviando…" : <>Quiero mi diagnóstico <Icon name="arrow" size={18} /></>}</button></form>}</Reveal></div></section>
+      <section id="contacto" className="contact-section" aria-labelledby="contact-title"><div className="contact-wrap page-width"><Reveal className="contact-copy"><p className="eyebrow eyebrow--light">El siguiente paso empieza aquí</p><h2 id="contact-title">Tu negocio no tiene por qué seguir adaptándose a la tecnología.</h2><p>Cuéntanos en qué punto estás. Encontraremos la manera de quitar la traba.</p><div className="contact-points"><span><Icon name="shield" size={18} /> Conversación sin compromiso</span><span><Icon name="spark" size={18} /> Propuesta clara y accionable</span></div></Reveal><Reveal className={`lead-form-wrap ${formFlash ? "lead-form-wrap--glow" : ""}`} delay={120}>{submitted ? <div className="form-success" role="status"><div><Icon name="check" size={30} /></div><h3>Recibimos tu mensaje.</h3><p>Muy pronto un miembro de CeroTraba se pondrá en contacto contigo para conocer tu necesidad.</p><button className="text-link text-link--light" onClick={() => setSubmitted(false)}>Enviar otra consulta <Icon name="arrow" size={17} /></button></div> : <form className="lead-form" onSubmit={handleSubmit} noValidate={false}>{formNeed && !submitted && <p className="form-hint" role="status"><Icon name="check" size={14} /> Consulta lista para: <strong>{formNeed}</strong></p>}<div className="form-row"><label>Nombre<input required type="text" name="name" placeholder="¿Cómo te llamas?" maxLength={120} /></label><label>WhatsApp<input required type="tel" name="phone" placeholder="Tu número" maxLength={40} /></label></div><label>Correo de trabajo<input required type="email" name="email" placeholder="tu@empresa.com" maxLength={160} /></label><label>¿Qué necesitas?<select required name="need" value={formNeed} onChange={(event) => setFormNeed(event.target.value)}><option value="" disabled>Elige una opción</option><option>Automatizaciones</option><option>CCTV y seguridad</option><option>Cableado estructurado</option><option>Interconexiones y enlaces</option><option>Router WiFi</option><option>Página web de conversión</option><option>Redes sociales y contenido</option><option>Soporte técnico</option><option>No estoy seguro aún</option></select></label><label>Cuéntanos brevemente<textarea name="message" rows={3} placeholder="¿Qué te gustaría resolver?" maxLength={2000} /></label>{formError && <p className="form-error" role="alert"><Icon name="warning" size={15} /> {formError}</p>}<button className="button button--primary form-submit" type="submit" disabled={sending}>{sending ? "Enviando…" : <>Quiero mi diagnóstico <Icon name="arrow" size={18} /></>}</button></form>}</Reveal></div></section>
 
       <WhatsAppButton />
 

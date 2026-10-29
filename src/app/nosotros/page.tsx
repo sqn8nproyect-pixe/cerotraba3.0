@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import WhatsAppButton from "@/components/whatsapp-button";
 import { RevealObserver, SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { siteConfig } from "@/lib/site-config";
@@ -175,6 +176,13 @@ export default function NosotrosPage() {
             adelante, no frenarlo. Hoy quitamos esas trabas en negocios locales, empresas de toda Venezuela y clientes
             internacionales.
           </p>
+          <p className="rif-seal">
+            <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3 20 6v5c0 5.3-3.4 8.6-8 10-4.6-1.4-8-4.7-8-10V6z" />
+              <path d="m8.5 12 2.2 2.2 4.8-5" />
+            </svg>
+            Agencia formalmente constituida · RIF {siteConfig.rif}
+          </p>
         </div>
       </section>
 
@@ -290,7 +298,7 @@ export default function NosotrosPage() {
           {showcase.map((item, index) => (
             <div className="client-card reveal" key={item.name} style={{ transitionDelay: `${index * 80}ms` }}>
               <div className="client-media">
-                <img src={item.image} alt={item.alt} loading="lazy" width={576} height={360} />
+                <Image src={item.image} alt={item.alt} loading="lazy" width={576} height={360} sizes="(max-width: 820px) 92vw, (max-width: 1050px) 170px, 265px" />
                 <span className="client-country">
                   <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>
                   {item.country}

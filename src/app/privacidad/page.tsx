@@ -50,7 +50,8 @@ export default function PrivacidadPage() {
           <h2>1. Responsable del tratamiento</h2>
           <p>
             Los datos personales tratados a través de este sitio web son responsabilidad de CeroTraba, empresa de
-            servicios tecnológicos con base en Los Teques, estado Miranda, Venezuela. Para cualquier consulta relacionada
+            servicios tecnológicos con base en Los Teques, estado Miranda, Venezuela, identificada fiscalmente con el
+            RIF {siteConfig.rif}. Para cualquier consulta relacionada
             con esta política o con el manejo de tus datos, puedes escribirnos a{" "}
             <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> o comunicarte por WhatsApp al
             +58 {siteConfig.whatsappNumber.slice(2, 5)}-{siteConfig.whatsappNumber.slice(5, 8)}-

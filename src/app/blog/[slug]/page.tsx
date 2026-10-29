@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import WhatsAppButton from "@/components/whatsapp-button";
@@ -105,7 +106,7 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
       <article className="article-section">
         <div className="article-wrap">
           <figure className="article-image reveal">
-            <img src={post.image} alt={post.imageAlt} width={1200} height={675} />
+            <Image src={post.image} alt={post.imageAlt} width={1200} height={675} priority sizes="(max-width: 820px) 92vw, 760px" />
           </figure>
 
           <p className="article-lead reveal">{post.intro}</p>
@@ -153,7 +154,7 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
           {related.map((item) => (
             <Link className="blog-card reveal" href={`/blog/${item.slug}`} key={item.slug}>
               <span className="blog-card-media">
-                <img src={item.image} alt={item.imageAlt} loading="lazy" width={640} height={400} />
+                <Image src={item.image} alt={item.imageAlt} loading="lazy" width={640} height={400} sizes="(max-width: 820px) 92vw, (max-width: 1050px) 45vw, 340px" />
               </span>
               <span className="blog-card-body">
                 <span className="blog-chip">{item.category}</span>
