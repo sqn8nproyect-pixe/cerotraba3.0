@@ -66,6 +66,27 @@ const projects = [
   },
 ];
 
+const clients = [
+  {
+    name: "Sepulturas en Oferta",
+    country: "Chile",
+    domain: "sepulturasenoferta.cl",
+    url: "https://sepulturasenoferta.cl",
+    image: "/clientes/sepulturas-en-oferta.jpg",
+    alt: "Sitio web de Sepulturas en Oferta: página con fondo de parque y el título Sepulturas en el Parque El Recuerdo Américo Vespucio, Precios de Oportunidad",
+    text: "Plataforma de compra-venta de sepulturas en el Parque El Recuerdo Américo Vespucio, Santiago de Chile. Diseñamos una página clara y confiable, con proceso notarial explicado paso a paso y contacto directo por WhatsApp.",
+  },
+  {
+    name: "Funeraria San Gabriel",
+    country: "Chile",
+    domain: "funerariasangabriel.cl",
+    url: "https://www.funerariasangabriel.cl/",
+    image: "/clientes/funeraria-san-gabriel.jpg",
+    alt: "Sitio web de Funeraria San Gabriel: marca en verde azulado con el mensaje Dignidad y Respeto y acompañamiento profesional las 24 horas en Región Metropolitana",
+    text: "Servicios funerarios con acompañamiento profesional las 24 horas en la Región Metropolitana de Santiago. Construimos su presencia digital con planes claros, secciones de ayuda inmediata y una navegación sobria y respetuosa.",
+  },
+];
+
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
   const paths: Record<IconName, React.ReactNode> = {
@@ -273,6 +294,23 @@ export default function App() {
                 <p className="project-tagline">{project.tagline} · Los Teques, Venezuela</p>
                 <p className="project-text">{project.text}</p>
                 <a className="text-link project-link" href={project.url} target="_blank" rel="noopener noreferrer">Visitar {project.domain} <Icon name="arrow" size={16} /></a>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="clientes" className="clients-section page-width section-space" aria-labelledby="clients-title">
+        <Reveal className="projects-intro"><p className="eyebrow">Alcance internacional</p><h2 id="clients-title">Clientes que ya confían en nuestro trabajo.</h2><p>Nuestro trabajo cruza fronteras: junto a Conecta-Lt acompañamos también a clientes en Chile, con sitios web que generan confianza desde el primer clic.</p><a className="text-link" href="#contacto">Quiero ser el próximo <Icon name="arrow" size={17} /></a></Reveal>
+        <div className="client-list">
+          {clients.map((client, index) => (
+            <Reveal className="client-card" delay={index * 90} key={client.name}>
+              <div className="client-media"><img src={client.image} alt={client.alt} loading="lazy" width={576} height={360} /><span className="client-country"><svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>{client.country}</span></div>
+              <div className="client-main">
+                <h3>{client.name}</h3>
+                <p className="client-domain">{client.domain}</p>
+                <p className="client-text">{client.text}</p>
+                <a className="text-link client-link" href={client.url} target="_blank" rel="noopener noreferrer">Visitar {client.domain} <Icon name="arrow" size={16} /></a>
               </div>
             </Reveal>
           ))}

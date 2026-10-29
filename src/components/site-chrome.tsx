@@ -16,6 +16,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Cómo funciona", key: "proceso" },
   { label: "Nosotros", key: "nosotros", page: true },
   { label: "Proyectos", key: "proyectos" },
+  { label: "Clientes", key: "clientes" },
   { label: "Planes", key: "planes" },
   { label: "Blog", key: "blog", page: true },
   { label: "Preguntas", key: "faq" },
@@ -137,6 +138,7 @@ export function SiteFooter() {
           <a href="/#servicios">Servicios</a>
           <a href="/nosotros">Nosotros</a>
           <a href="/#proyectos">Proyectos</a>
+          <a href="/#clientes">Clientes</a>
           <a href="/blog">Blog</a>
           <a href="/#planes">Planes</a>
           <a href="/#faq">FAQ</a>
