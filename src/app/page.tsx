@@ -161,6 +161,35 @@ export default function App() {
 
   return (
     <main id="inicio" className="site-shell cerotaba">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "@id": `${siteConfig.siteUrl}/#negocio`,
+            name: siteConfig.name,
+            slogan: siteConfig.tagline,
+            description: "Servicios tecnológicos para empresas en Venezuela: automatizaciones inteligentes, CCTV, páginas web, redes sociales, soporte técnico, cableado estructurado, interconexiones entre sedes y router WiFi.",
+            url: siteConfig.siteUrl,
+            email: siteConfig.contactEmail,
+            telephone: "+584220117206",
+            image: `${siteConfig.siteUrl}/og-cerotraba.jpg`,
+            priceRange: "$$",
+            address: { "@type": "PostalAddress", addressCountry: "VE" },
+            areaServed: { "@type": "Country", name: "Venezuela" },
+            sameAs: [`https://wa.me/${siteConfig.whatsappNumber}`],
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Servicios tecnológicos",
+              itemListElement: services.map((service) => ({
+                "@type": "Offer",
+                itemOffered: { "@type": "Service", name: service.title, description: service.text },
+              })),
+            },
+          }),
+        }}
+      />
       <header className={`site-header ${scrolled ? "site-header--scrolled" : ""} ${menuOpen ? "site-header--menu-open" : ""}`}>
         <div className="nav-wrap">
           <Brand />

@@ -8,6 +8,13 @@ export const siteConfig = {
   tagline: "Tecnología sin trabas",
 
   /**
+   * URL pública del sitio (sin barra final). La usa el SEO: canonical,
+   * Open Graph, sitemap y robots. Configúrala en Vercel con la variable
+   * NEXT_PUBLIC_SITE_URL = https://tu-url.vercel.app (o tu dominio propio).
+   */
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://cerotraba3-0.vercel.app",
+
+  /**
    * Correo de contacto que aparece en el sitio y en los botones de respuesta.
    */
   contactEmail: "cerotraba@gmail.com",
