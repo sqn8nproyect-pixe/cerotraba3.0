@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import WhatsAppButton from "@/components/whatsapp-button";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { siteConfig } from "@/lib/site-config";
 
 type IconName =
@@ -88,17 +89,11 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   return <svg {...common}>{paths[name]}</svg>;
 }
 
-function Brand({ light = false }: { light?: boolean }) {
-  return <a className={`brand ${light ? "brand--light" : ""}`} href="#inicio" aria-label="CeroTraba inicio"><span className="brand-mark">CeroTraba</span><span className="brand-dot" /></a>;
-}
-
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   return <div className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
 export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -110,18 +105,6 @@ export default function App() {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 28);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -217,15 +200,7 @@ export default function App() {
           }),
         }}
       />
-      <header className={`site-header ${scrolled ? "site-header--scrolled" : ""} ${menuOpen ? "site-header--menu-open" : ""}`}>
-        <div className="nav-wrap">
-          <Brand />
-          <nav className="desktop-nav" aria-label="Navegación principal"><a href="#servicios">Servicios</a><a href="#proceso">Cómo funciona</a><a href="#proyectos">Proyectos</a><a href="#planes">Planes</a><a href="#faq">Preguntas</a></nav>
-          <a className="nav-cta" href="#contacto">Hablemos <Icon name="arrow" size={15} /></a>
-          <button className="menu-toggle" type="button" aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><Icon name={menuOpen ? "x" : "menu"} size={22} /></button>
-        </div>
-        <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`}><nav aria-label="Navegación móvil"><a onClick={() => setMenuOpen(false)} href="#servicios">Servicios</a><a onClick={() => setMenuOpen(false)} href="#proceso">Cómo funciona</a><a onClick={() => setMenuOpen(false)} href="#proyectos">Proyectos</a><a onClick={() => setMenuOpen(false)} href="#planes">Planes</a><a onClick={() => setMenuOpen(false)} href="#faq">Preguntas</a><a onClick={() => setMenuOpen(false)} href="#contacto">Agendar diagnóstico <Icon name="arrow" size={16} /></a></nav></div>
-      </header>
+      <SiteHeader />
 
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-image" aria-hidden="true" />
@@ -319,7 +294,7 @@ export default function App() {
 
       <WhatsAppButton />
 
-      <footer className="site-footer"><div className="page-width footer-top"><Brand light /><div className="footer-nav"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#proyectos">Proyectos</a><a href="#faq">FAQ</a><a href="#contacto">Contacto</a></div><a className="footer-mail" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail} <Icon name="arrow" size={16} /></a></div><div className="page-width footer-bottom"><span>2026 CeroTraba. Tecnología sin trabas.</span><span>Hecho para avanzar.</span><a className="footer-admin" href="/admin">Panel</a></div></footer>
+      <SiteFooter />
     </main>
   );
 }

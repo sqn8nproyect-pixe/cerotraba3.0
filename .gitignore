@@ -59,3 +59,5 @@ db/*.db
 db/*.db-journal
 scripts/*.png
 upload/
+shots/
+tool-results/
