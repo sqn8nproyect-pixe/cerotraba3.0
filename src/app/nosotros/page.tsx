@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 
 const SITE_TITLE = "Quiénes somos — CeroTraba";
 const SITE_DESCRIPTION =
-  "Conoce a CeroTraba: el equipo de Los Teques, Venezuela que quita las trabas tecnológicas de tu negocio con automatizaciones, CCTV, redes y páginas web.";
+  "Conoce a CeroTraba: el equipo de Los Teques, Venezuela que trabaja a nivel local, nacional e internacional quitando las trabas tecnológicas de tu negocio con automatizaciones, CCTV, redes y páginas web.";
 
 const values = [
   {
@@ -63,6 +63,83 @@ const steps = [
   },
 ];
 
+const reach = [
+  {
+    tag: "Local",
+    title: "Los Teques y Caracas",
+    icon: "pin" as const,
+    text: "Atención presencial para lo que requiere manos en tu espacio: instalaciones de CCTV, cableado estructurado, redes y soporte técnico directo donde está tu negocio.",
+  },
+  {
+    tag: "Nacional",
+    title: "Toda Venezuela",
+    icon: "map" as const,
+    text: "Acompañamiento remoto y proyectos digitales sin importar el estado: páginas web, automatizaciones y asistencia técnica con el mismo nivel de cercanía.",
+  },
+  {
+    tag: "Internacional",
+    title: "Chile y más allá",
+    icon: "globe" as const,
+    text: "Desarrollo web para clientes del exterior. Hoy operamos en Santiago de Chile, con sitios en producción para el mercado chileno desde nuestro taller en Los Teques.",
+  },
+];
+
+const showcase = [
+  {
+    name: "Conecta-Lt",
+    country: "Venezuela",
+    domain: "conectalt.com",
+    url: "https://conectalt.com",
+    image: "/proyectos/conectalt-logo.jpg",
+    alt: "Logo 3D de Conecta-Lt: pin de ubicación con letra C y arquitectura colonial de Los Teques",
+    text: "Nuestro proyecto insignia: el directorio digital de Los Teques, con comercios, servicios y gastronomía de la ciudad en una sola plataforma. Desarrollamos la marca, la identidad 3D y el producto digital completo.",
+  },
+  {
+    name: "Sepulturas en Oferta",
+    country: "Chile",
+    domain: "sepulturasenoferta.cl",
+    url: "https://sepulturasenoferta.cl",
+    image: "/clientes/sepulturas-en-oferta.jpg",
+    alt: "Sitio web de Sepulturas en Oferta: página con fondo de parque y el título Sepulturas en el Parque El Recuerdo Américo Vespucio, Precios de Oportunidad",
+    text: "Compra-venta de sepulturas en el Parque El Recuerdo Américo Vespucio, Santiago de Chile. Una página clara y confiable, con el proceso notarial explicado paso a paso y contacto directo por WhatsApp.",
+  },
+  {
+    name: "Funeraria San Gabriel",
+    country: "Chile",
+    domain: "funerariasangabriel.cl",
+    url: "https://www.funerariasangabriel.cl/",
+    image: "/clientes/funeraria-san-gabriel.jpg",
+    alt: "Sitio web de Funeraria San Gabriel: marca en verde azulado con el mensaje Dignidad y Respeto y acompañamiento profesional las 24 horas en Región Metropolitana",
+    text: "Servicios funerarios con acompañamiento profesional las 24 horas en la Región Metropolitana de Santiago. Presencia digital con planes claros, ayuda inmediata y una navegación sobria y respetuosa.",
+  },
+];
+
+function ReachIcon({ kind }: { kind: "pin" | "map" | "globe" }) {
+  return (
+    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {kind === "pin" && (
+        <>
+          <path d="M12 21s-6.5-5.2-6.5-10.3a6.5 6.5 0 1 1 13 0C18.5 15.8 12 21 12 21z" />
+          <circle cx="12" cy="10.5" r="2.4" />
+        </>
+      )}
+      {kind === "map" && (
+        <>
+          <path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2z" />
+          <path d="M9 4v14" />
+          <path d="M15 6v14" />
+        </>
+      )}
+      {kind === "globe" && (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
@@ -95,7 +172,8 @@ export default function NosotrosPage() {
           <h1>Somos el equipo que le quita las trabas a tu tecnología.</h1>
           <p className="page-lead">
             CeroTraba nació en Los Teques con una convicción simple: la tecnología debe empujar tu negocio hacia
-            adelante, no frenarlo. Y cuando algo se traba, lo arreglamos.
+            adelante, no frenarlo. Hoy quitamos esas trabas en negocios locales, empresas de toda Venezuela y clientes
+            internacionales.
           </p>
         </div>
       </section>
@@ -104,7 +182,7 @@ export default function NosotrosPage() {
         <div className="about-story-grid">
           <div className="about-story-copy reveal">
             <p className="eyebrow">Nuestra historia</p>
-            <h2 id="story-title">De Los Teques, para los negocios de Venezuela.</h2>
+            <h2 id="story-title">Nacidos en Los Teques, probados en dos países.</h2>
             <p>
               CeroTraba nació en Los Teques, estado Miranda, después de años de ver el mismo patrón repetirse: negocios
               serios, con buen producto y clientes fieles, frenados por tecnología que no funciona. Cámaras que grababan
@@ -118,9 +196,11 @@ export default function NosotrosPage() {
               pantalla, y sabemos que la mayoría de los problemas están justamente en la unión de los dos mundos.
             </p>
             <p>
-              Hoy acompañamos a empresas, profesionales y equipos en crecimiento de toda Venezuela, con servicios que van
-              desde CCTV y cableado estructurado hasta automatizaciones y páginas web. Pero el criterio con el que
-              empezamos sigue siendo el mismo: la tecnología se adapta a tu operación, nunca al revés.
+              Hoy acompañamos a empresas, profesionales y equipos en crecimiento con servicios que van desde CCTV y
+              cableado estructurado hasta automatizaciones y páginas web. Lo hacemos de forma presencial en Los Teques y
+              Caracas, en remoto con clientes de toda Venezuela, y a nivel internacional con proyectos digitales ya en
+              producción en Chile. El criterio con el que empezamos, sin embargo, sigue siendo el mismo: la tecnología se
+              adapta a tu operación, nunca al revés.
             </p>
           </div>
           <div className="about-facts reveal">
@@ -140,8 +220,8 @@ export default function NosotrosPage() {
                 <path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
               </svg>
               <div>
-                <strong>Base en Los Teques, alcance nacional</strong>
-                <p>Trabajamos de forma presencial en Miranda y Caracas, y de forma remota en todo el país.</p>
+                <strong>Local, nacional e internacional</strong>
+                <p>Atención presencial en Los Teques y Caracas, remota en toda Venezuela y con proyectos digitales activos en Chile.</p>
               </div>
             </div>
             <div className="about-fact">
@@ -156,7 +236,77 @@ export default function NosotrosPage() {
                 <p>Redes, seguridad, automatización y web en un mismo equipo. Sin coordinar tres proveedores distintos para resolver un problema.</p>
               </div>
             </div>
+            <div className="about-fact">
+              <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 12h4l2.5-6.5 4.5 13L16.5 12H21" />
+              </svg>
+              <div>
+                <strong>Proyectos ya en marcha</strong>
+                <p>Sitios y plataformas funcionando hoy en dos países: conectalt.com, sepulturasenoferta.cl y funerariasangabriel.cl.</p>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section className="about-reach page-width" aria-labelledby="reach-title">
+        <div className="section-heading section-heading--narrow reveal">
+          <p className="eyebrow">Dónde trabajamos</p>
+          <h2 id="reach-title">Local, nacional e internacional.</h2>
+          <p>
+            Nuestro taller está en Los Teques, pero las trabas tecnológicas se resuelven igual aquí, a diez cuadras o a
+            miles de kilómetros. Por eso acompañamos a nuestros clientes en tres niveles de alcance.
+          </p>
+        </div>
+        <div className="reach-strip">
+          {reach.map((item, index) => (
+            <div className="reach-item reveal" key={item.tag} style={{ transitionDelay: `${index * 80}ms` }}>
+              <ReachIcon kind={item.icon} />
+              <span className="reach-tag">{item.tag}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="clients-section page-width section-space" aria-labelledby="proof-title">
+        <div className="projects-intro reveal">
+          <p className="eyebrow">Trabajo real</p>
+          <h2 id="proof-title">Clientes consolidados y proyectos en marcha.</h2>
+          <p>
+            La mejor carta de presentación es lo que ya funciona: un proyecto insignia propio en Venezuela y clientes
+            internacionales en Chile cuyos sitios operan todos los días con nosotros detrás.
+          </p>
+          <a className="text-link" href="/#contacto">
+            Quiero un proyecto así
+            <svg width={17} height={17} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+        <div className="client-list">
+          {showcase.map((item, index) => (
+            <div className="client-card reveal" key={item.name} style={{ transitionDelay: `${index * 80}ms` }}>
+              <div className="client-media">
+                <img src={item.image} alt={item.alt} loading="lazy" width={576} height={360} />
+                <span className="client-country">
+                  <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>
+                  {item.country}
+                </span>
+              </div>
+              <div className="client-main">
+                <h3>{item.name}</h3>
+                <p className="client-domain">{item.domain}</p>
+                <p className="client-text">{item.text}</p>
+                <a className="text-link client-link" href={item.url} target="_blank" rel="noopener noreferrer">
+                  Visitar {item.domain}
+                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

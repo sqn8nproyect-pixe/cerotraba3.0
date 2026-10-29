@@ -529,6 +529,15 @@ body { font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-s
 .about-fact svg { flex: 0 0 auto; margin-top: 2px; color: #6d4bea; }
 .about-fact strong { display: block; color: #16304a; font-size: 14px; letter-spacing: -.01em; }
 .about-fact p { margin: 5px 0 0; color: #64748b; font-size: 12.5px; line-height: 1.6; }
+.about-reach { padding-top: 88px; }
+.reach-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 46px; }
+.reach-item { padding: 24px 24px 22px; border: 1px solid #dce5ed; border-radius: 14px; background: #fff; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.reach-item:hover { transform: translateY(-5px); border-color: #c2b8f7; box-shadow: 0 18px 40px rgba(49,70,102,.1); }
+.reach-item > svg { color: #6d4bea; }
+.reach-tag { display: inline-block; margin-top: 15px; padding: 4px 10px; border-radius: 999px; background: #efeaff; color: #5f47d8; font-size: 10.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.reach-item h3 { margin: 11px 0 0; font-size: 18.5px; font-weight: 650; letter-spacing: -.03em; }
+.reach-item p { margin: 8px 0 0; color: #5a6b80; font-size: 13px; line-height: 1.66; }
+.client-card.reveal { transition: opacity .66s cubic-bezier(.2,.65,.2,1), transform .66s cubic-bezier(.2,.65,.2,1), border-color .3s ease, box-shadow .3s ease; }
 .about-values { padding-top: 110px; padding-bottom: 110px; }
 .values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 54px; }
 .value-card { padding: 26px 24px 28px; border: 1px solid #dce5ed; border-radius: 15px; background: #fff; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
@@ -615,6 +624,9 @@ body { font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-s
   .about-story { padding-top: 66px; }
   .about-story-grid { grid-template-columns: 1fr; gap: 0; }
   .about-facts { margin-top: 34px; gap: 11px; }
+  .about-reach { padding-top: 60px; }
+  .reach-strip { grid-template-columns: 1fr; gap: 11px; margin-top: 36px; }
+  .reach-item { padding: 21px 20px 22px; }
   .about-values { padding-top: 66px; padding-bottom: 66px; }
   .values-grid { grid-template-columns: 1fr; gap: 11px; margin-top: 34px; }
   .value-card { padding: 22px 20px 24px; }
@@ -643,6 +655,6 @@ body { font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-s
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blog-card, .blog-featured, .blog-featured .blog-card-media img, .blog-card .blog-card-media img, .value-card, .client-card, .client-card .client-media img { transition: none; }
-  .blog-card:hover, .blog-featured:hover, .value-card:hover, .client-card:hover { transform: none; }
+  .blog-card, .blog-featured, .blog-featured .blog-card-media img, .blog-card .blog-card-media img, .value-card, .client-card, .client-card .client-media img, .reach-item { transition: none; }
+  .blog-card:hover, .blog-featured:hover, .value-card:hover, .client-card:hover, .reach-item:hover { transform: none; }
 }
