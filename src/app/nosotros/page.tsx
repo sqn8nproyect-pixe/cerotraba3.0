@@ -190,7 +190,7 @@ export default function NosotrosPage() {
         <div className="about-story-grid">
           <div className="about-story-copy reveal">
             <p className="eyebrow">Nuestra historia</p>
-            <h2 id="story-title">Nacidos en Los Teques, probados en dos países.</h2>
+            <h2 id="story-title">Nacidos en Los Teques, probados en Venezuela y Chile.</h2>
             <p>
               CeroTraba nació en Los Teques, estado Miranda, después de años de ver el mismo patrón repetirse: negocios
               serios, con buen producto y clientes fieles, frenados por tecnología que no funciona. Cámaras que grababan
@@ -250,7 +250,7 @@ export default function NosotrosPage() {
               </svg>
               <div>
                 <strong>Proyectos ya en marcha</strong>
-                <p>Sitios y plataformas funcionando hoy en dos países: conectalt.com, sepulturasenoferta.cl y funerariasangabriel.cl.</p>
+                <p>Sitios y plataformas funcionando hoy en Venezuela y Chile: conectalt.com, sepulturasenoferta.cl y funerariasangabriel.cl.</p>
               </div>
             </div>
           </div>
