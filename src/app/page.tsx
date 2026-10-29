@@ -52,6 +52,19 @@ const faqs = [
   { question: "¿Ofrecen soporte después de entregar el proyecto?", answer: "Claro. Podemos acompañar tu operación con soporte recurrente, capacitación para el equipo y mejoras progresivas para que la solución no se quede quieta mientras tu negocio evoluciona." },
 ];
 
+const projects = [
+  {
+    name: "Conecta-Lt",
+    tag: "Proyecto insignia",
+    tagline: "Conecta con lo nuestro",
+    domain: "conectalt.com",
+    url: "https://conectalt.com",
+    image: "/proyectos/conectalt-logo.jpg",
+    alt: "Logo 3D de Conecta-Lt: pin de ubicación con letra C y arquitectura colonial de Los Teques, rodeado de íconos de comercio, gastronomía y comunidad",
+    text: "El directorio digital de Los Teques: comercios, servicios, gastronomía y personas de la ciudad reunidos en una sola plataforma. En CeroTraba desarrollamos la marca, la identidad 3D y el producto digital completo de este proyecto insignia.",
+  },
+];
+
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
   const paths: Record<IconName, React.ReactNode> = {
@@ -207,11 +220,11 @@ export default function App() {
       <header className={`site-header ${scrolled ? "site-header--scrolled" : ""} ${menuOpen ? "site-header--menu-open" : ""}`}>
         <div className="nav-wrap">
           <Brand />
-          <nav className="desktop-nav" aria-label="Navegación principal"><a href="#servicios">Servicios</a><a href="#proceso">Cómo funciona</a><a href="#planes">Planes</a><a href="#faq">Preguntas</a></nav>
+          <nav className="desktop-nav" aria-label="Navegación principal"><a href="#servicios">Servicios</a><a href="#proceso">Cómo funciona</a><a href="#proyectos">Proyectos</a><a href="#planes">Planes</a><a href="#faq">Preguntas</a></nav>
           <a className="nav-cta" href="#contacto">Hablemos <Icon name="arrow" size={15} /></a>
           <button className="menu-toggle" type="button" aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><Icon name={menuOpen ? "x" : "menu"} size={22} /></button>
         </div>
-        <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`}><nav aria-label="Navegación móvil"><a onClick={() => setMenuOpen(false)} href="#servicios">Servicios</a><a onClick={() => setMenuOpen(false)} href="#proceso">Cómo funciona</a><a onClick={() => setMenuOpen(false)} href="#planes">Planes</a><a onClick={() => setMenuOpen(false)} href="#faq">Preguntas</a><a onClick={() => setMenuOpen(false)} href="#contacto">Agendar diagnóstico <Icon name="arrow" size={16} /></a></nav></div>
+        <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`}><nav aria-label="Navegación móvil"><a onClick={() => setMenuOpen(false)} href="#servicios">Servicios</a><a onClick={() => setMenuOpen(false)} href="#proceso">Cómo funciona</a><a onClick={() => setMenuOpen(false)} href="#proyectos">Proyectos</a><a onClick={() => setMenuOpen(false)} href="#planes">Planes</a><a onClick={() => setMenuOpen(false)} href="#faq">Preguntas</a><a onClick={() => setMenuOpen(false)} href="#contacto">Agendar diagnóstico <Icon name="arrow" size={16} /></a></nav></div>
       </header>
 
       <section className="hero" aria-labelledby="hero-title">
@@ -273,6 +286,24 @@ export default function App() {
         </div>
       </Reveal><Reveal className="testimonial-index" delay={150}><span className="testimonial-index-active">{String(activeTestimonial + 1).padStart(2, "0")}</span><i /><span>{String(testimonials.length).padStart(2, "0")}</span></Reveal></div></section>
 
+      <section id="proyectos" className="projects-section page-width section-space" aria-labelledby="projects-title">
+        <Reveal className="projects-intro"><p className="eyebrow">Trabajo real</p><h2 id="projects-title">Proyectos que ya están en la calle.</h2><p>Nuestra mejor carta de presentación es lo que ya construimos y funciona. Estos son los proyectos insignia de la casa.</p><a className="text-link" href="#contacto">Quiero un proyecto así <Icon name="arrow" size={17} /></a></Reveal>
+        <div className="project-list">
+          {projects.map((project, index) => (
+            <Reveal className="project-card" delay={index * 90} key={project.name}>
+              <div className="project-media"><img src={project.image} alt={project.alt} loading="lazy" width={576} height={576} /></div>
+              <div className="project-main">
+                <span className="project-tag">{project.tag}</span>
+                <h3>{project.name}</h3>
+                <p className="project-tagline">{project.tagline} · Los Teques, Venezuela</p>
+                <p className="project-text">{project.text}</p>
+                <a className="text-link project-link" href={project.url} target="_blank" rel="noopener noreferrer">Visitar {project.domain} <Icon name="arrow" size={16} /></a>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       <section id="planes" className="pricing-section page-width section-space" aria-labelledby="pricing-title">
         <Reveal className="pricing-intro"><p className="eyebrow">Sin soluciones enlatadas</p><h2 id="pricing-title">Elige cómo quieres empezar.</h2><p>Te proponemos un alcance ajustado a tu momento, tus prioridades y la velocidad que necesitas.</p></Reveal>
         <div className="pricing-grid">{plans.map((plan, index) => <Reveal className={`price-plan ${plan.featured ? "price-plan--featured" : ""}`} delay={index * 90} key={plan.name}>{plan.featured && <span className="plan-label">Más elegido</span>}<h3>{plan.name}</h3><p className="plan-intro">{plan.intro}</p><p className="plan-price">{plan.price}<small>{plan.price === "Mensual" ? "/ acompañamiento" : ""}</small></p><ul>{plan.items.map((item) => <li key={item}><Icon name="check" size={16} />{item}</li>)}</ul><a className={plan.featured ? "button button--primary plan-button" : "button button--outline plan-button"} href="#contacto">Conocer propuesta <Icon name="arrow" size={16} /></a></Reveal>)}</div>
@@ -288,7 +319,7 @@ export default function App() {
 
       <WhatsAppButton />
 
-      <footer className="site-footer"><div className="page-width footer-top"><Brand light /><div className="footer-nav"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#faq">FAQ</a><a href="#contacto">Contacto</a></div><a className="footer-mail" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail} <Icon name="arrow" size={16} /></a></div><div className="page-width footer-bottom"><span>2026 CeroTraba. Tecnología sin trabas.</span><span>Hecho para avanzar.</span><a className="footer-admin" href="/admin">Panel</a></div></footer>
+      <footer className="site-footer"><div className="page-width footer-top"><Brand light /><div className="footer-nav"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#proyectos">Proyectos</a><a href="#faq">FAQ</a><a href="#contacto">Contacto</a></div><a className="footer-mail" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail} <Icon name="arrow" size={16} /></a></div><div className="page-width footer-bottom"><span>2026 CeroTraba. Tecnología sin trabas.</span><span>Hecho para avanzar.</span><a className="footer-admin" href="/admin">Panel</a></div></footer>
     </main>
   );
 }
