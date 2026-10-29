@@ -50,6 +50,25 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
+function InstagramIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <path d="M17.2 6.8h.01" />
+    </svg>
+  );
+}
+
+function WhatsAppIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" />
+      <path d="M9.2 8.4c.2 2.9 3.5 6.2 6.4 6.4l.9-1.8-2.3-1.1-.9.7a5.6 5.6 0 0 1-1.9-1.9l.7-.9-1.1-2.3z" />
+    </svg>
+  );
+}
+
 export function Brand({ light = false, homeHref = "#inicio" }: { light?: boolean; homeHref?: string }) {
   return (
     <a className={`brand ${light ? "brand--light" : ""}`} href={homeHref} aria-label="CeroTraba inicio">
@@ -147,6 +166,14 @@ export function SiteFooter() {
         <a className="footer-mail" href={`mailto:${siteConfig.contactEmail}`}>
           {siteConfig.contactEmail} <ArrowIcon size={16} />
         </a>
+        <div className="footer-social">
+          <a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label={`Instagram de CeroTraba (${siteConfig.instagramHandle})`}>
+            <InstagramIcon />
+          </a>
+          <a href={`https://wa.me/${siteConfig.whatsappNumber}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de CeroTraba">
+            <WhatsAppIcon />
+          </a>
+        </div>
       </div>
       <div className="page-width footer-bottom">
         <span>2026 CeroTraba. Tecnología sin trabas.</span>

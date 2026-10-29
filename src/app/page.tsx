@@ -115,6 +115,142 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   return <div className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
+const SCREEN_PHRASES = ["Todo avanza.", "Todo conectado.", "Nada te detiene."];
+
+/**
+ * Escenario interactivo de la sección "Menos tareas sueltas":
+ * - Tilt 3D que sigue el cursor (solo punteros finos; respeta prefers-reduced-motion).
+ * - Titular con efecto máquina de escribir que rota tres frases.
+ * - Paquetes de datos viajando por la línea de flujo, nodos y barras latiendo.
+ * - Clic o toque en cualquier parte: onda expansiva + "surge" que acelera el flujo.
+ */
+function OperationStage() {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState<{ x: number; y: number } | null>(null);
+  const [surging, setSurging] = useState(false);
+  const [bursts, setBursts] = useState<{ id: number; x: number; y: number }[]>([]);
+  const [typed, setTyped] = useState(SCREEN_PHRASES[0]);
+  const motionRef = useRef({ fine: false, reduced: true });
+  const surgeTimer = useRef<number | null>(null);
+  const burstId = useRef(0);
+
+  useEffect(() => {
+    motionRef.current = {
+      fine: window.matchMedia("(hover: hover) and (pointer: fine)").matches,
+      reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let timer: number;
+    let phase: "hold" | "typing" | "deleting" = "hold";
+    let char = SCREEN_PHRASES[0].length;
+    let index = 0;
+    const tick = () => {
+      if (phase === "hold") {
+        phase = "deleting";
+        timer = window.setTimeout(tick, 1700);
+      } else if (phase === "deleting") {
+        char -= 1;
+        setTyped(SCREEN_PHRASES[index].slice(0, char));
+        if (char <= 0) {
+          phase = "typing";
+          index = (index + 1) % SCREEN_PHRASES.length;
+          timer = window.setTimeout(tick, 420);
+        } else {
+          timer = window.setTimeout(tick, 26);
+        }
+      } else {
+        char += 1;
+        setTyped(SCREEN_PHRASES[index].slice(0, char));
+        if (char >= SCREEN_PHRASES[index].length) {
+          phase = "hold";
+          timer = window.setTimeout(tick, 1700);
+        } else {
+          timer = window.setTimeout(tick, 55);
+        }
+      }
+    };
+    timer = window.setTimeout(tick, 1700);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => () => {
+    if (surgeTimer.current) window.clearTimeout(surgeTimer.current);
+  }, []);
+
+  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    const { fine, reduced } = motionRef.current;
+    const stage = stageRef.current;
+    if (!fine || reduced || !stage) return;
+    const rect = stage.getBoundingClientRect();
+    const x = Math.min(0.5, Math.max(-0.5, (event.clientX - rect.left) / rect.width - 0.5));
+    const y = Math.min(0.5, Math.max(-0.5, (event.clientY - rect.top) / rect.height - 0.5));
+    setTilt({ x, y });
+  }
+
+  function handlePointerLeave() {
+    setTilt(null);
+  }
+
+  function handleSurge(event: React.PointerEvent<HTMLDivElement>) {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    const id = (burstId.current += 1);
+    const burst = { id, x: event.clientX - rect.left, y: event.clientY - rect.top };
+    setBursts((current) => [...current.slice(-4), burst]);
+    window.setTimeout(() => setBursts((current) => current.filter((item) => item.id !== id)), 950);
+    setSurging(true);
+    if (surgeTimer.current) window.clearTimeout(surgeTimer.current);
+    surgeTimer.current = window.setTimeout(() => setSurging(false), 1150);
+  }
+
+  const tiltStyle = tilt
+    ? { transform: `perspective(1000px) rotateY(${(tilt.x * 9).toFixed(2)}deg) rotateX(${(-tilt.y * 7).toFixed(2)}deg) translateY(-6px)` }
+    : undefined;
+
+  return (
+    <div
+      ref={stageRef}
+      className={`interface-stage-inner ${surging ? "is-surging" : ""}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      onPointerDown={handleSurge}
+    >
+      <div className="interface-glow" aria-hidden="true" />
+      <div className={`product-screen ${tilt ? "is-tilting" : ""}`} style={tiltStyle} aria-label="Vista conceptual e interactiva de una operación conectada">
+        <div className="screen-top">
+          <span className="screen-logo">CeroTraba</span>
+          <span className="screen-status"><i /> {surging ? "Flujo activado" : "Todo en marcha"}</span>
+        </div>
+        <div className="screen-body">
+          <div className="screen-sidebar"><span className="sidebar-active" /><span /><span /><span /><span /></div>
+          <div className="screen-content">
+            <div className="screen-kicker">Operación de hoy</div>
+            <div className="screen-title">{typed}<span className="type-caret" aria-hidden="true" /></div>
+            <div className="flow-line">
+              <span className="flow-node flow-node--one" />
+              <span className="flow-node flow-node--two" />
+              <span className="flow-node flow-node--three" />
+              <i aria-hidden="true" />
+              <span className="flow-packet flow-packet--one" aria-hidden="true" />
+              <span className="flow-packet flow-packet--two" aria-hidden="true" />
+              <span className="flow-packet flow-packet--three" aria-hidden="true" />
+            </div>
+            <div className="screen-cells"><span /><span /><span /></div>
+          </div>
+        </div>
+      </div>
+      <p className="stage-hint" aria-hidden="true"><Icon name="spark" size={13} /> Pásale el cursor o tócalo: así se ve tu operación con CeroTraba.</p>
+      {bursts.map((burst) => (
+        <span key={burst.id} className="click-burst" style={{ left: burst.x, top: burst.y }} aria-hidden="true" />
+      ))}
+    </div>
+  );
+}
+
 export default function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -222,7 +358,7 @@ export default function App() {
               { "@type": "Country", name: "Venezuela" },
               { "@type": "Country", name: "Chile" },
             ],
-            sameAs: [`https://wa.me/${siteConfig.whatsappNumber}`],
+            sameAs: [`https://wa.me/${siteConfig.whatsappNumber}`, siteConfig.instagramUrl],
             hasOfferCatalog: {
               "@type": "OfferCatalog",
               name: "Servicios tecnológicos",
@@ -283,7 +419,7 @@ export default function App() {
       <section id="proceso" className="showcase-section">
         <div className="showcase-wrap page-width">
           <Reveal className="showcase-copy"><p className="eyebrow eyebrow--light">Menos tareas sueltas</p><h2>Todo conectado. Nada te detiene.</h2><p>Convertimos la complejidad técnica en un sistema simple para tu equipo: procesos que fluyen, información que llega y decisiones que pasan más rápido.</p><ul className="check-list"><li><Icon name="check" size={18} /> Entiende primero, implementa después.</li><li><Icon name="check" size={18} /> Sin soluciones infladas ni jerga innecesaria.</li><li><Icon name="check" size={18} /> Un equipo humano a un mensaje de distancia.</li></ul><a className="text-link text-link--light" href="#contacto">Quiero ordenar mi operación <Icon name="arrow" size={17} /></a></Reveal>
-          <Reveal className="interface-stage" delay={150}><div className="interface-glow" aria-hidden="true" /><div className="product-screen" aria-label="Vista conceptual de una operación conectada"><div className="screen-top"><span className="screen-logo">CeroTraba</span><span className="screen-status"><i /> Todo en marcha</span></div><div className="screen-body"><div className="screen-sidebar"><span className="sidebar-active" /><span /><span /><span /><span /></div><div className="screen-content"><div className="screen-kicker">Operación de hoy</div><div className="screen-title">Todo avanza.</div><div className="flow-line"><span className="flow-node flow-node--one" /><span className="flow-node flow-node--two" /><span className="flow-node flow-node--three" /><i /></div><div className="screen-cells"><span /><span /><span /></div></div></div></div></Reveal>
+          <Reveal className="interface-stage" delay={150}><OperationStage /></Reveal>
         </div>
       </section>
 

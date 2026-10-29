@@ -40,6 +40,13 @@ export const siteConfig = {
     "Hola CeroTraba, vengo de su página web y quiero hacer una consulta.",
 
   /**
+   * Perfil oficial de Instagram de la agencia. Aparece en el footer de todas
+   * las páginas y en los datos estructurados (schema.org sameAs) para SEO.
+   */
+  instagramUrl: "https://www.instagram.com/cerotraba",
+  instagramHandle: "@cerotraba",
+
+  /**
    * URL de webhook para notificaciones de leads (opcional).
    * Se puede definir en la variable de entorno LEAD_WEBHOOK_URL.
    * Compatible con Zapier / Make / n8n: cada lead nuevo llega como POST JSON
