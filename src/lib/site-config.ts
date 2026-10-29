@@ -9,12 +9,13 @@ export const siteConfig = {
 
   /**
    * URL pública del sitio (sin barra final). La usa el SEO: canonical,
-   * Open Graph, sitemap y robots. Dominio propio: https://cerotraba.io
-   * (configurable en Vercel con la variable NEXT_PUBLIC_SITE_URL).
+   * Open Graph, sitemap y robots. Debe coincidir con el dominio principal
+   * configurado en Vercel: www.cerotraba.io (el apex cerotraba.io
+   * redirige hacia www). Configurable con la variable NEXT_PUBLIC_SITE_URL.
    */
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://cerotraba.io",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.cerotraba.io",
 
-  /** Dominio canónico del sitio, sin protocolo. Útil para textos y metadatos. */
+  /** Dominio canónico del sitio, sin protocolo ni www. Útil para textos y metadatos. */
   domain: "cerotraba.io",
 
   /**
