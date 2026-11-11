@@ -387,7 +387,7 @@ export default function App() {
       <SiteHeader />
 
       <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-image" aria-hidden="true" />
+        <div className="hero-image" aria-hidden="true"><Image src="/cerotraba-noc.jpg" alt="" fill priority sizes="100vw" quality={75} style={{ objectFit: "cover" }} /></div>
         <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-content page-width">
           <div className="hero-copy">
