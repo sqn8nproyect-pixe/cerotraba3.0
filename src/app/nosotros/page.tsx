@@ -96,6 +96,15 @@ const showcase = [
     text: "Nuestro proyecto insignia: el directorio digital de Los Teques, con comercios, servicios y gastronomía de la ciudad en una sola plataforma. Desarrollamos la marca, la identidad 3D y el producto digital completo.",
   },
   {
+    name: "Licorería Don Sancho",
+    country: "Venezuela",
+    domain: "conectalt.com/local/licoreria-don-sancho",
+    url: "https://conectalt.com/local/licoreria-don-sancho",
+    image: "/clientes/licoreria-don-sancho.jpg",
+    alt: "Logo de Licorería Don Sancho: rostro de vaquero en silueta blanca con sombrero, bigote y perilla sobre fondo rojo, marca de la licorería del centro de Los Teques",
+    text: "Licorería de confianza en el centro de Los Teques, en plena entrada de la avenida Bolívar entre el Palacio de Deporte y el Banco del Tesoro, con delivery por WhatsApp y la mejor variedad de licores nacionales e importados. Su página local forma parte de Conecta-Lt, el directorio digital de la ciudad.",
+  },
+  {
     name: "Sepulturas en Oferta",
     country: "Chile",
     domain: "sepulturasenoferta.cl",
@@ -283,8 +292,8 @@ export default function NosotrosPage() {
           <p className="eyebrow">Trabajo real</p>
           <h2 id="proof-title">Clientes consolidados y proyectos en marcha.</h2>
           <p>
-            La mejor carta de presentación es lo que ya funciona: un proyecto insignia propio en Venezuela y clientes
-            internacionales en Chile cuyos sitios operan todos los días con nosotros detrás.
+            La mejor carta de presentación es lo que ya funciona: un proyecto insignia propio y clientes en Venezuela
+            y Chile cuyos sitios operan todos los días con nosotros detrás.
           </p>
           <a className="text-link" href="/#contacto">
             Quiero un proyecto así

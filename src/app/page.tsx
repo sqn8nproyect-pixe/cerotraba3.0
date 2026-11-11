@@ -69,6 +69,15 @@ const projects = [
 
 const clients = [
   {
+    name: "Licorería Don Sancho",
+    country: "Venezuela",
+    domain: "conectalt.com/local/licoreria-don-sancho",
+    url: "https://conectalt.com/local/licoreria-don-sancho",
+    image: "/clientes/licoreria-don-sancho.jpg",
+    alt: "Logo de Licorería Don Sancho: rostro de vaquero en silueta blanca con sombrero, bigote y perilla sobre fondo rojo, marca de la licorería del centro de Los Teques",
+    text: "Licorería de confianza en el centro de Los Teques, en plena entrada de la avenida Bolívar entre el Palacio de Deporte y el Banco del Tesoro, con delivery por WhatsApp y la mejor variedad de licores nacionales e importados. Su página local forma parte de Conecta-Lt, el directorio digital de la ciudad.",
+  },
+  {
     name: "Sepulturas en Oferta",
     country: "Chile",
     domain: "sepulturasenoferta.cl",
@@ -466,7 +475,7 @@ export default function App() {
       </section>
 
       <section id="clientes" className="clients-section page-width section-space" aria-labelledby="clients-title">
-        <Reveal className="projects-intro"><p className="eyebrow">Alcance internacional</p><h2 id="clients-title">Clientes que ya confían en nuestro trabajo.</h2><p>Nuestro trabajo cruza fronteras: junto a Conecta-Lt acompañamos también a clientes en Chile, con sitios web que generan confianza desde el primer clic.</p><a className="text-link" href="#contacto">Quiero ser el próximo <Icon name="arrow" size={17} /></a></Reveal>
+        <Reveal className="projects-intro"><p className="eyebrow">Alcance internacional</p><h2 id="clients-title">Clientes que ya confían en nuestro trabajo.</h2><p>Nuestro trabajo cruza fronteras: junto a Conecta-Lt acompañamos a clientes en Venezuela y Chile, con sitios web que generan confianza desde el primer clic.</p><a className="text-link" href="#contacto">Quiero ser el próximo <Icon name="arrow" size={17} /></a></Reveal>
         <div className="client-list">
           {clients.map((client, index) => (
             <Reveal className="client-card" delay={index * 90} key={client.name}>
